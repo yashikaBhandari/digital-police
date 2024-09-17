@@ -1,6 +1,8 @@
+// AdminPage.js
 import React from 'react';
 import Dashboard from '../components/Dashboard';
 import Alerts from '../components/Alerts';
+import MapView from '../components/MapView';
 
 function AdminPage() {
   const pageStyle = {
@@ -65,6 +67,11 @@ function AdminPage() {
           <button style={buttonStyle}>View Users</button>
           <button style={buttonStyle}>Add New User</button>
         </div>
+      </div>
+
+      <div style={sectionStyle}>
+        <h3>Zones on Map</h3>
+        <MapView />
       </div>
 
       <div style={{ marginTop: '30px' }}>

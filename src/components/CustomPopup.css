@@ -1,0 +1,9 @@
+/* CustomPopup.css */
+.custom-popup {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 20%;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}

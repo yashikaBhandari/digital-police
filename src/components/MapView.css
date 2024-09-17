@@ -1,0 +1,15 @@
+/* MapView.css */
+.popup-danger {
+  background-color: red;
+  color: white;
+}
+
+.popup-warning {
+  background-color: yellow;
+  color: black;
+}
+
+.popup-safe {
+  background-color: green;
+  color: white;
+}

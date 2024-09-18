@@ -47,9 +47,6 @@ function Dashboard() {
       </div>
 
       {/* Button to navigate to Admin Page */}
-      <Link to="/admin">
-        <button style={{ marginTop: '20px' }}>Go to Admin Page</button>
-      </Link>
     </div>
   );
 }

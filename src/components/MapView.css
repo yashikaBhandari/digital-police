@@ -1,0 +1,38 @@
+.mapView{
+    width: 100%;
+    padding: 20px 0px;
+    box-sizing: border-box;
+}
+.crime-details{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.crime-details-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+/* Define blink animation */
+@keyframes blink {
+  0% { background-color: white; }
+  50% { background-color: red; }
+  100% { background-color: white; }
+}
+
+/* Blink class to trigger the 1-second animation */
+.blink {
+  animation: blink 1s ease-in-out;
+}
+.btn-crime{
+  margin: 5px 0px;
+  padding: 6px 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,0 +1,85 @@
+.entrypage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://t3.ftcdn.net/jpg/03/92/91/40/360_F_392914039_a0snQzzWfCCm3vtJw3XmWArZlUykUSou.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.entrypage-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Darker overlay */
+}
+
+.entrypage-content {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+}
+
+.entrypage-title {
+  font-size: 3em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.entrypage-quote {
+  font-size: 1.4em;
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.entrypage-subtitle {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.entrypage-button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.entrypage-button {
+  font-size: 1.2em;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 45%;
+  color: #fff;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.entrypage-police-button {
+  background-color: #007bff;
+}
+
+.entrypage-police-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.entrypage-admin-button {
+  background-color: #28a745;
+}
+
+.entrypage-admin-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}

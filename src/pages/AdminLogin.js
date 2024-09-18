@@ -1,78 +1,87 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./PoliceLogin.css"; // Import the CSS file
 
-function AdminLoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+const AdminLogin = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleLoginRedirect = () => {
+    navigate("/adminHome"); // Redirect to the login page
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Data structure to be sent to the API
-    const loginData = {
-      data: {
-        email: email,
-        password: password,
-      },
-      accountType: 'ADMIN',
-    };
-
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
+      const response = await axios.post(
+        "http://localhost:3002/api/auth/login",
+        {
+          data: {
+            email: formData.email,
+            password: formData.password,
+          },
+          accountType: "ADMIN",
+        }
+      );
 
-      const result = await response.json();
-
-      if (response.ok) {
-        // If login is successful, navigate to the admin dashboard
-        navigate('/admin');
-      } else {
-        // If login fails, set error message
-        setError(result.message || 'Login failed. Please try again.');
+      if (response.status === 200) {
+        setSuccessMessage("Login successful!");
+        handleLoginRedirect();
+        // Redirect to a different page or handle post-login logic
       }
     } catch (error) {
-      setError('An error occurred. Please try again later.');
+      setError("Login failed. Please check your credentials and try again.");
     }
   };
 
   return (
-    <div>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
-
-      {/* Display error message */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Admin Login</h2>
+        {error && <p className="message error">{error}</p>}
+        {successMessage && <p className="message success">{successMessage}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="submit-button">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
-export default AdminLoginPage;
+export default AdminLogin;

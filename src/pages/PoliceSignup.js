@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./PoliceSignup.css"; // Import the CSS file
 
 const PoliceSignup = () => {
   const [formData, setFormData] = useState({
-    regId: "POL123",  // Auto-filled or manually set
+    regId: "",
     email: "",
     password: "",
     gender: "Male",
@@ -25,17 +26,15 @@ const PoliceSignup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/register", {
-        data: {
-          regId: formData.regId,
-          email: formData.email,
-          password: formData.password,
-          gender: formData.gender,
-        },
-        accountType: "POLICE",
-      });
+      const response = await axios.post(
+        "http://localhost:3002/api/auth/register",
+        {
+          data: formData,
+          accountType: "POLICE", // Set accountType here
+        }
+      );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setSuccessMessage("Police registration successful!");
       }
     } catch (error) {
@@ -47,138 +46,65 @@ const PoliceSignup = () => {
     navigate("/policelogin"); // Redirect to the login page
   };
 
-  const styles = {
-    container: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      backgroundColor: '#f4f4f4',
-    },
-    formContainer: {
-      backgroundColor: '#fff',
-      padding: '40px',
-      borderRadius: '10px',
-      boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-      maxWidth: '400px',
-      width: '100%',
-    },
-    heading: {
-      textAlign: 'center',
-      fontSize: '2em',
-      marginBottom: '20px',
-      color: '#333',
-    },
-    formGroup: {
-      marginBottom: '20px',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '5px',
-      color: '#555',
-      fontWeight: 'bold',
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '1em',
-      borderRadius: '5px',
-      border: '1px solid #ccc',
-      boxSizing: 'border-box',
-    },
-    select: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '1em',
-      borderRadius: '5px',
-      border: '1px solid #ccc',
-      boxSizing: 'border-box',
-    },
-    button: {
-      width: '100%',
-      padding: '10px',
-      fontSize: '1.2em',
-      backgroundColor: '#007bff',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s ease',
-    },
-    buttonHover: {
-      backgroundColor: '#0056b3',
-    },
-    loginButton: {
-      marginTop: '10px',
-      backgroundColor: '#6c757d',
-      color: '#fff',
-      padding: '10px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    },
-    error: {
-      color: 'red',
-      marginTop: '10px',
-    },
-    success: {
-      color: 'green',
-      marginTop: '10px',
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.formContainer}>
-        <h2 style={styles.heading}>Police Registration</h2>
-        {error && <p style={styles.error}>{error}</p>}
-        {successMessage && <p style={styles.success}>{successMessage}</p>}
+    <div className="signup-container">
+      <div className="signup-form-container">
+        <h2 className="signup-heading">Police Registration</h2>
+        {error && <p className="signup-error">{error}</p>}
+        {successMessage && <p className="signup-success">{successMessage}</p>}
         <form onSubmit={handleSubmit}>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Email:</label>
+          <div className="signup-form-group">
+            <label className="signup-label">Registration ID:</label>
+            <input
+              type="text"
+              name="regId"
+              value={formData.regId}
+              onChange={handleChange}
+              required
+              className="signup-input"
+            />
+          </div>
+          <div className="signup-form-group">
+            <label className="signup-label">Email:</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              style={styles.input}
+              className="signup-input"
             />
           </div>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Password:</label>
+          <div className="signup-form-group">
+            <label className="signup-label">Password:</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               required
-              style={styles.input}
+              className="signup-input"
             />
           </div>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Gender:</label>
+          <div className="signup-form-group">
+            <label className="signup-label">Gender:</label>
             <select
               name="gender"
               value={formData.gender}
               onChange={handleChange}
-              style={styles.select}
+              className="signup-select"
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
           </div>
-          <button
-            type="submit"
-            style={styles.button}
-            onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
-            onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
-          >
+          <button type="submit" className="signup-button">
             Register
           </button>
         </form>
         <button
-          style={styles.loginButton}
+          className="signup-login-button"
           onClick={handleLoginRedirect} // Redirect to login on click
         >
           Already Registered? Login
@@ -189,4 +115,3 @@ const PoliceSignup = () => {
 };
 
 export default PoliceSignup;
-
